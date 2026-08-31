@@ -1,0 +1,112 @@
+[
+  {
+    "id": "email_1",
+    "author": "Alice Smith <alice.smith@company.com>",
+    "to": "lance@company.com",
+    "subject": "Quick question about API documentation",
+    "received_at": "2026-08-30T09:15:00Z",
+    "email_thread": "Hi Lance,\n\nI was reviewing the API documentation for the new authentication service and noticed a few endpoints seem to be missing from the specs. Could you help clarify if this was intentional or if we should update the docs?\n\nSpecifically, I'm looking at:\n- /auth/refresh\n- /auth/validate\n\nThanks!\nAlice",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "write_email"
+  },
+  {
+    "id": "email_2",
+    "author": "Marketing Team <marketing@company.com>",
+    "to": "lance@company.com",
+    "subject": "New Company Newsletter Available - August Edition",
+    "received_at": "2026-08-30T08:30:00Z",
+    "email_thread": "Hello Lance,\n\nThe latest edition of our company newsletter is now available on the intranet. This month features articles on our Q2 results, upcoming team building activities, and employee spotlights.\n\nCheck it out when you have a chance!\n\nBest regards,\nMarketing Team",
+    "status": "unread",
+    "classification": "ignore",
+    "expected_action": "ignore"
+  },
+  {
+    "id": "email_3",
+    "author": "System Admin <sysadmin@company.com>",
+    "to": "dev-team@company.com",
+    "subject": "Scheduled maintenance - database downtime tonight",
+    "received_at": "2026-08-30T08:00:00Z",
+    "email_thread": "Hi team,\n\nThis is a reminder that we'll be performing scheduled maintenance on the production database tonight from 2AM to 4AM EST. During this time, all database services will be unavailable.\n\nPlease plan your work accordingly and ensure no critical deployments are scheduled during this window.\n\nThanks,\nSystem Admin Team",
+    "status": "unread",
+    "classification": "notify",
+    "expected_action": "notify"
+  },
+  {
+    "id": "email_4",
+    "author": "Project Manager <pm@client.com>",
+    "to": "lance@company.com",
+    "subject": "Tax season strategy - let's schedule a call",
+    "received_at": "2026-08-29T16:45:00Z",
+    "email_thread": "Lance,\n\nIt's tax season again, and I wanted to schedule a call to discuss your tax planning strategies for this year. I have some suggestions that could potentially save you money.\n\nAre you available sometime next week? Tuesday or Thursday afternoon would work best for me, for about 45 minutes.\n\nRegards,\nProject Manager",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "schedule_meeting"
+  },
+  {
+    "id": "email_5",
+    "author": "HR Department <hr@company.com>",
+    "to": "lance@company.com",
+    "subject": "Reminder: Submit your monthly expense reports",
+    "received_at": "2026-08-29T15:00:00Z",
+    "email_thread": "Hello Lance,\n\nThis is a friendly reminder that all expense reports for the previous month need to be submitted by this Friday. Please make sure to include all receipts and proper documentation.\n\nIf you have any questions about the submission process, feel free to reach out to the HR team.\n\nBest regards,\nHR Department",
+    "status": "unread",
+    "classification": "notify",
+    "expected_action": "notify"
+  },
+  {
+    "id": "email_6",
+    "author": "Conference Organizer <events@techconf.com>",
+    "to": "lance@company.com",
+    "subject": "Invitation: TechConf 2026 Keynote & Workshops",
+    "received_at": "2026-08-29T13:20:00Z",
+    "email_thread": "Hi Lance,\n\nWe're reaching out to invite you to TechConf 2026, happening in San Francisco. The conference features keynote speakers from major AI companies, workshops on LLMs and agentic systems, and great networking opportunities. Early bird registration is available until end of month.\n\nWould you be interested in attending? We can also arrange group discounts if other team members want to join.\n\nBest regards,\nConference Organizers",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "write_email"
+  },
+  {
+    "id": "email_7",
+    "author": "Sarah Johnson <sarah.j@partner.com>",
+    "to": "lance@company.com",
+    "subject": "Can you review technical specs before Friday submission?",
+    "received_at": "2026-08-29T11:10:00Z",
+    "email_thread": "Lance,\n\nI've attached the final version of our proposal for the project. Could you please review the technical specifications section (pages 15-20) before we submit it to the client on Friday?\n\nYour expertise would really help ensure we've covered all the necessary details.\n\nThanks in advance,\nSarah",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "write_email"
+  },
+  {
+    "id": "email_8",
+    "author": "Community Recreation <info@cityrecreation.org>",
+    "to": "lance@company.com",
+    "subject": "Sign up daughter for swimming class - Intermediate level",
+    "received_at": "2026-08-28T18:00:00Z",
+    "email_thread": "Dear Lance,\n\nSummer swimming registration is now open! Based on your daughter's participation last year, intermediate level classes are available on Mondays and Wednesdays at 4PM or Tuesdays and Thursdays at 5PM.\n\nClasses begin next month. Space is limited, so early registration is recommended. Please let us know if you'd like to reserve a spot.\n\nRegards,\nCity Recreation Department",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "write_email"
+  },
+  {
+    "id": "email_9",
+    "author": "GitHub Notifications <notifications@github.com>",
+    "to": "lance@company.com",
+    "subject": "PR #42: Comment from alex-dev on core auth module",
+    "received_at": "2026-08-28T14:35:00Z",
+    "email_thread": "Hey there!\n\nalex-dev commented on your pull request #42:\n> I've reviewed the changes and everything looks good. Just one small suggestion for the error handling in auth_controller.py. Maybe we should add a timeout parameter to prevent hanging requests?\n\nView comment: https://github.com/company/project/pull/42#comment-12345",
+    "status": "unread",
+    "classification": "notify",
+    "expected_action": "notify"
+  },
+  {
+    "id": "email_10",
+    "author": "Team Lead <teamlead@company.com>",
+    "to": "lance@company.com",
+    "subject": "Quarterly Roadmap & Planning Session",
+    "received_at": "2026-08-28T10:00:00Z",
+    "email_thread": "Hi Lance,\n\nIt's time for our quarterly planning session. I'd like to schedule a 60-minute meeting next week to discuss our roadmap.\n\nCould you let me know your availability for Monday or Wednesday afternoon, between 1PM and 4PM?\n\nLooking forward to your input on the new feature priorities.\n\nBest,\nTeam Lead",
+    "status": "unread",
+    "classification": "respond",
+    "expected_action": "schedule_meeting"
+  }
+]
