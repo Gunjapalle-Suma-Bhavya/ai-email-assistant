@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@theme {
+  --color-parchment: #F4F1EA;
+  --color-stationery: #FCFAF7;
+  --color-rail: #ECE7DE;
+  --color-ink: #1E1E1C;
+  --color-ink-muted: #6B665F;
+  --color-oxford: #1E3A5F;
+  --color-oxford-hover: #152943;
+  --color-oxblood: #6A2E2A;
+  --color-oxblood-hover: #542421;
+  --color-gold-bg: #FDF8EC;
+  --color-gold-border: #E0CE9A;
+  --color-gold-ink: #4A3E18;
+  --color-hairline: #DCD5C9;
+
+  --font-serif-title: "Newsreader", "Playfair Display", Georgia, serif;
+  --font-serif-body: "Source Serif 4", "Lora", Georgia, serif;
+  --font-mono-ui: "JetBrains Mono", monospace;
+  --font-sans-ui: "Space Grotesk", system-ui, -apple-system, sans-serif;
+}
+
+:root {
+  --bg-parchment: #F4F1EA;
+  --bg-stationery: #FCFAF7;
+  --bg-rail: #ECE7DE;
+  --text-ink: #1E1E1C;
+  --text-muted: #6B665F;
+  --color-oxford: #1E3A5F;
+  --color-oxblood: #6A2E2A;
+  --color-gold-bg: #FDF8EC;
+  --color-gold-border: #E0CE9A;
+  --color-gold-text: #4A3E18;
+  --color-hairline: #DCD5C9;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans-ui, "Space Grotesk", system-ui, sans-serif);
+    background-color: #F4F1EA;
+    color: #1E1E1C;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, .font-serif-title {
+    font-family: "Newsreader", "Playfair Display", Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+
+  .font-serif-body {
+    font-family: "Source Serif 4", "Lora", Georgia, serif;
+    line-height: 1.68;
+  }
+
+  .font-mono-ui {
+    font-family: "JetBrains Mono", monospace;
+    letter-spacing: 0.05em;
+  }
+}
+
+/* Subtle stationery scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #DCD5C9;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #BDB5A7;
+}
+
+/* Fine Stationery Helper Utilities */
+.stationery-paper {
+  background-color: #FCFAF7;
+  border: 1px solid #DCD5C9;
+  border-radius: 2px;
+}
+
+.desk-pad {
+  background-color: #FDF8EC;
+  border: 1px solid #E0CE9A;
+  color: #4A3E18;
+  border-radius: 2px;
+}
+
+.hairline-border {
+  border: 1px solid #DCD5C9;
+}
+
+.hairline-b {
+  border-bottom: 1px solid #DCD5C9;
+}
+
+.hairline-t {
+  border-top: 1px solid #DCD5C9;
+}
+
+.hairline-r {
+  border-right: 1px solid #DCD5C9;
+}
+
+.hairline-l {
+  border-left: 1px solid #DCD5C9;
+}

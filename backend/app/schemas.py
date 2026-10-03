@@ -1,5 +1,33 @@
 from typing import Literal, Optional, List, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
+
+
+class UserSignupRequest(BaseModel):
+    full_name: str = Field(min_length=2, max_length=60)
+    email: str
+    password: str = Field(min_length=6)
+
+
+class UserLoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class UserResponse(BaseModel):
+    id: str
+    email: str
+    full_name: str
+    created_at: Optional[str] = None
+    google_connected: Optional[bool] = False
+    auth_provider: Optional[str] = "local"
+    active_account_id: Optional[str] = None
+    connected_accounts: Optional[List[Dict[str, Any]]] = None
+
+
+class TokenResponse(BaseModel):
+    access_token: str
+    token_type: str = "bearer"
+    user: UserResponse
 
 
 class EmailItem(BaseModel):
@@ -12,10 +40,13 @@ class EmailItem(BaseModel):
     status: Literal["unread", "read", "triaged", "drafted", "sent", "ignored"] = "unread"
     classification: Optional[Literal["respond", "notify", "ignore"]] = None
     reasoning: Optional[str] = None
+    confidence_score: Optional[float] = 0.95
     draft_response: Optional[str] = None
     draft_subject: Optional[str] = None
     calendar_event: Optional[Dict[str, Any]] = None
     feedback_history: List[str] = Field(default_factory=list)
+    account_email: Optional[str] = None
+    account_type: Optional[str] = None
 
 
 class EmailCreate(BaseModel):
@@ -98,3 +129,27 @@ class CalendarEventSchema(BaseModel):
     preferred_day: str
     duration_minutes: int = 30
     confirmed: bool = False
+
+
+class DraftItem(BaseModel):
+    id: str
+    email_id: str
+    subject: str
+    to: str
+    body: str
+    tool_name: str = "write_email"
+    calendar_event: Optional[Dict[str, Any]] = None
+    status: Literal["pending_review", "approved", "edited", "rejected"] = "pending_review"
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+
+class FeedbackItem(BaseModel):
+    id: str
+    action_type: str
+    email_id: Optional[str] = None
+    original_text: Optional[str] = None
+    edited_text: Optional[str] = None
+    feedback_note: str
+    learned_rule: Optional[str] = None
+    timestamp: str
