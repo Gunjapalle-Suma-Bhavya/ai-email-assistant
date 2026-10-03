@@ -132,6 +132,27 @@ pytest tests/
 
 ---
 
+## 🌐 Deploy to Render
+
+Deploying AetherMail to Render takes 2 minutes:
+
+1. Push your repository to GitHub.
+2. In the [Render Dashboard](https://dashboard.render.com), click **New +** $\rightarrow$ **Web Service** (or use **Blueprint** pointing to `render.yaml`).
+3. Connect your repository `ai-email-assistant`.
+4. Configure service settings:
+   - **Environment**: `Python 3`
+   - **Build Command**: `./build.sh`
+   - **Start Command**: `python run.py`
+5. In **Environment Variables**, provide:
+   - `OPENAI_API_KEY`: Your OpenAI API key
+   - `OPENAI_MODEL`: `gpt-4o-mini` (or your preferred model)
+   - `JWT_SECRET`: Random 32+ character secure secret (or auto-generated)
+   - `MONGODB_URI`: (Optional) Connection string to MongoDB Atlas; runs resilient local cache if blank
+   - `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`: (Optional) For live Gmail sync
+6. Click **Deploy Web Service**. Render will automatically build the React SPA, install backend dependencies, and launch the unified production server!
+
+---
+
 ## 📄 License
 
 This project is open-source and available under the [MIT License](LICENSE).
