@@ -23,11 +23,11 @@ export default function LoginPage() {
 
   React.useEffect(() => {
     if (oauthError) {
-      setError(
-        oauthError === 'google_auth_failed'
-          ? 'Google authentication was not completed or was cancelled.'
-          : `Authentication error: ${oauthError}`
-      );
+      try {
+        setError(decodeURIComponent(oauthError));
+      } catch {
+        setError(oauthError);
+      }
     }
   }, [oauthError]);
 

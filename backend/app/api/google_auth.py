@@ -1,6 +1,8 @@
 """
 Google OAuth 2.0 and Gmail/Calendar Synchronization Endpoints.
 """
+import uuid
+import urllib.parse
 import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
@@ -250,7 +252,8 @@ async def google_callback(
 
     except Exception as e:
         logger.error(f"Google callback processing failed: {e}", exc_info=True)
-        return RedirectResponse(url=f"{settings.FRONTEND_URL}/login?error=google_auth_failed")
+        err_msg = urllib.parse.quote(str(e))
+        return RedirectResponse(url=f"{settings.FRONTEND_URL}/login?error={err_msg}")
 
 
 # ---------------- ACCOUNT SWITCHER ENDPOINTS ----------------
