@@ -28,6 +28,8 @@ def get_llm(temperature: float = 0.0) -> Optional[ChatOpenAI]:
             api_key=api_key,
             base_url=settings.OPENAI_BASE_URL,
             temperature=temperature,
+            request_timeout=5.0,
+            max_retries=1,
         )
     except Exception as e:
         logger.error(f"Error initializing ChatOpenAI: {e}")

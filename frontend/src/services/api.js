@@ -21,6 +21,10 @@ export async function request(endpoint, options = {}) {
     config.body = JSON.stringify(options.body);
   }
 
+  if (!config.signal && AbortSignal.timeout) {
+    config.signal = AbortSignal.timeout(6000);
+  }
+
   const response = await fetch(`${BASE_URL}${endpoint}`, config);
 
   if (response.status === 401) {

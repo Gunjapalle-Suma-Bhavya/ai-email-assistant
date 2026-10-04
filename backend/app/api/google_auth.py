@@ -7,7 +7,7 @@ import logging
 from typing import Dict, Any, Optional
 from datetime import datetime
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, Query, Request, status
 from fastapi.responses import RedirectResponse
 
 from backend.app.config import settings
@@ -143,6 +143,7 @@ def google_connect(
 
 @router.get("/callback")
 async def google_callback(
+    background_tasks: BackgroundTasks,
     code: Optional[str] = None,
     error: Optional[str] = None,
     state: Optional[str] = None,
@@ -186,13 +187,17 @@ async def google_callback(
             await db_manager.add_connected_account(target_user_id, account_item)
             await db_manager.set_active_account(target_user_id, account_item["account_id"])
 
-            try:
-                acc_user_repr = {"google_tokens": tokens}
-                live_messages = google_service.fetch_gmail_messages(acc_user_repr, max_results=15)
-                for msg in live_messages:
-                    await process_and_store_gmail_message(target_user_id, msg, account_email=email)
-            except Exception as sync_err:
-                logger.warning(f"Initial sync for connected account warning: {sync_err}")
+            # Sync initial messages in background without blocking redirection
+            async def sync_connected_in_background():
+                try:
+                    acc_user_repr = {"google_tokens": tokens}
+                    live_messages = google_service.fetch_gmail_messages(acc_user_repr, max_results=10)
+                    for msg in live_messages:
+                        await process_and_store_gmail_message(target_user_id, msg, account_email=email)
+                except Exception as sync_err:
+                    logger.warning(f"Initial sync for connected account warning: {sync_err}")
+
+            background_tasks.add_task(sync_connected_in_background)
 
             return RedirectResponse(
                 url=f"{settings.FRONTEND_URL}/inbox?account_connected={email}&type={acc_type}",
@@ -230,21 +235,25 @@ async def google_callback(
         else:
             await db_manager.update_user_google_tokens(user["_id"], tokens, account_email=email)
 
-        # Clear mock/sample emails and auto-fetch real live Gmail messages
+        # Clear mock/sample emails and background-sync real live Gmail messages
         await db_manager.clear_mock_emails(user["_id"])
-        try:
-            user["google_tokens"] = tokens
-            live_messages = google_service.fetch_gmail_messages(user, max_results=15)
-            for msg in live_messages:
-                await process_and_store_gmail_message(user["_id"], msg, account_email=email)
-            logger.info(f"Auto-synced & triaged {len(live_messages)} live Gmail emails on login for {email}")
-        except Exception as sync_err:
-            logger.warning(f"Initial live Gmail fetch & triage on callback warning: {sync_err}")
+        
+        async def sync_login_in_background(u_id: str, u_tokens: Dict[str, Any], u_email: str):
+            try:
+                temp_u = {"google_tokens": u_tokens}
+                live_messages = google_service.fetch_gmail_messages(temp_u, max_results=10)
+                for msg in live_messages:
+                    await process_and_store_gmail_message(u_id, msg, account_email=u_email)
+                logger.info(f"Auto-synced & triaged {len(live_messages)} live Gmail emails for {u_email}")
+            except Exception as sync_err:
+                logger.warning(f"Initial live Gmail fetch & triage background warning: {sync_err}")
+
+        background_tasks.add_task(sync_login_in_background, user["_id"], tokens, email)
 
         # Generate app JWT token
         jwt_token = create_access_token({"sub": user["_id"], "email": email})
 
-        # Redirect user to inbox with the JWT token
+        # Redirect user to inbox with the JWT token INSTANTLY
         return RedirectResponse(
             url=f"{settings.FRONTEND_URL}/inbox?token={jwt_token}&name={full_name}",
             status_code=status.HTTP_307_TEMPORARY_REDIRECT,
